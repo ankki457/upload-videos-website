@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Subtitle Editor</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #videoContainer {
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #videoPlayer {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        #subtitleInput {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        #subtitlesList {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .subtitle-item {
+            margin-bottom: 8px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <di class="container" id="videoContainer">
+        <br>
+        <h2 class="mb-4">Video Subtitle Editor</h2>
+        <div class="custom-file mb-4">
+            <input type="file" class="custom-file-input" id="videoFileInput" accept="video/*">
+            <label class="custom-file-label" for="videoFileInput">Choose video file</label>
+        </div>
+        <video id="videoPlayer" class="mb-4" controls></video>
+        <textarea id="subtitleInput" class="mb-2" placeholder="Add subtitles at specific timestamps"></textarea>
+        <button class="btn btn-primary" onclick="addSubtitle()">Add Subtitle</button>
+    </div>
+
+    <div class="container" id="subtitlesList">
+        <h4>Subtitles List</h4>
+        <div id="subtitlesContainer"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let subtitles = [];
+
+        function addSubtitle() {
+            const timestamp = document.getElementById("videoPlayer").currentTime;
+            const subtitleText = document.getElementById("subtitleInput").value;
+            subtitles.push({ timestamp, text: subtitleText });
+            updateSubtitlesList();
+        }
+
+        function updateSubtitlesList() {
+            const subtitlesContainer = document.getElementById("subtitlesContainer");
+            subtitlesContainer.innerHTML = "";
+            subtitles.forEach(subtitle => {
+                subtitlesContainer.innerHTML += `<div class="subtitle-item">${subtitle.timestamp.toFixed(2)}s: ${subtitle.text}</div>`;
+            });
+        }
+
+        document.getElementById("videoFileInput").addEventListener("change", function (event) {
+            const videoPlayer = document.getElementById("videoPlayer");
+            const file = event.target.files[0];
+            const videoURL = URL.createObjectURL(file);
+            videoPlayer.src = videoURL;
+            videoPlayer.load();
+        });
+    </script>
+</body>
+</html>
