@@ -23,3 +23,7 @@ d. on the video.
 e. Retrieve subtitles file associated with the video for user to play it.
 
 
+![Screenshot (168)](https://github.com/ankki457/upload-videos-website/assets/130775560/367597c2-5a3e-4f4e-aba4-0260cb0bd451)
+
+![Screenshot (167)](https://github.com/ankki457/upload-videos-website/assets/130775560/d76c4b40-fc4c-40f5-a8ca-4b2bde3b3623)
+
